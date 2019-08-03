@@ -1,14 +1,17 @@
 import React, {Component} from 'react';
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
+import deepPurple from '@material-ui/core/colors/deepPurple';
 import purple from '@material-ui/core/colors/purple';
-import green from '@material-ui/core/colors/green';
 import {Button} from '@material-ui/core';
+
+import Dashboard from './containers/Dashboard.js';
+
 
 let theme = createMuiTheme({
   palette: {
-    primary: purple,
-    secondary: green,
+    primary: deepPurple,
+    secondary: purple,
   },
   status: {
     danger: 'orange',
@@ -26,9 +29,7 @@ constructor() {
   render() { 
     return (
       <ThemeProvider theme = {theme}>
-        <Button color = "secondary">
-          Hello World
-        </Button>
+       <Dashboard/>
       </ThemeProvider>
       
     );
