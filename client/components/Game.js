@@ -1,9 +1,11 @@
-import React, {Component} from 'react';
+// import React, {Component} from 'react';
 
-class Game extends Component {
-  render() { 
-    return ( <div>hi</div> );
-  }
-}
+// class Game extends Component {
+//   render() { 
+//     return ( 
+    
+//     );
+//   }
+// }
  
-export default Game;
+// export default Game;
