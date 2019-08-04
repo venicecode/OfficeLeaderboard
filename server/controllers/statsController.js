@@ -11,5 +11,16 @@ statsController.getLeaderBoard = (req,res,next) => {
     res.send({Username1: "Vance", Rank1: "1", Username2: "Alex", Rank2: "2", Username3: "Tang", Rank3: "3"})
     next();
 }
+statsController.moveUser = (req,res,next) => {
+    const gameToChange = req.params.game;
+    const userToMove = req.params.userid;
+    const rankDirection = req.rank;
+    console.log("Changing the following game: ", gameToChange);
+    console.log("We are going to rank this user: ", userToMove);
+    // console.log("In this way:", rankDirection);
+    //not sure how we will do this........
+    res.send({User: "someUser", Ranked: "upOrDown", Game: "thisGame", NewLeaderBoard: "someLeaderBoardArr"}) 
+    next();
+};
 
 module.exports = statsController;
