@@ -12,7 +12,7 @@ class SideBar extends Component {
 
     }
 
-onComponentDidMount(); 
+// onComponentDidMount(); 
 render() { 
     console.log(this.props)
     return ( 

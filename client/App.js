@@ -117,34 +117,34 @@ changeUserRankHandler(gameName, users){
 };
 
   
-componentDidMount() {
-  fetch("/api/employees/" + employeeid )
-    .then(res => res.json())
-    .then(
-      (result) => {
-        this.setState({
-          user: {
-            avatar: result.user.avatar,
-            username: result.user.username,
-            gamesPlaying: [
-              ...result.user.gamesPlaying
-            ],
-          },
-          games: {
-            ...result.games,
-          }
-        });
-      },
-      // Note: it's important to handle errors here
-      // instead of a catch() block so that we don't swallow
-      // exceptions from actual bugs in components.
-      (error) => {
-        this.setState({
+// componentDidMount() {
+//   fetch("/api/employees/" + employeeid )
+//     .then(res => res.json())
+//     .then(
+//       (result) => {
+//         this.setState({
+//           user: {
+//             avatar: result.user.avatar,
+//             username: result.user.username,
+//             gamesPlaying: [
+//               ...result.user.gamesPlaying
+//             ],
+//           },
+//           games: {
+//             ...result.games,
+//           }
+//         });
+//       },
+//       // Note: it's important to handle errors here
+//       // instead of a catch() block so that we don't swallow
+//       // exceptions from actual bugs in components.
+//       (error) => {
+//         this.setState({
         
-        });
-      }
-    )
-}
+//         });
+//       }
+//     )
+// }
 
 
   render(){ 
