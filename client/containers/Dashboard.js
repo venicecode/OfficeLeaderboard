@@ -10,11 +10,11 @@ import SideBar from '../components/SideBar.js';
 class DashBoard extends Component {
   
   render() { 
-  
+  console.log(this.props)
     return ( 
         <div className="dashboard">
           <HeaderMenu />
-          <SideBar {...this.props.user}/>
+          <SideBar {...this.props}/>
           <GameContainer {...this.props} />
         </div>
     );

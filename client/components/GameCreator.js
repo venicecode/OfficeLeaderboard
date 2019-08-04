@@ -5,8 +5,9 @@ import { Input } from '@material-ui/core';
 
  const GameCreator = (props) => (
      <div className="game-creator"> 
-         <button>Add Game To Office!</button>
-         <Input>e.g. Beer Pong</Input>
+         
+         <Input type="text" placeholder="Smash Bros." id="inputField" />
+         <button onClick={props.addGameToOfficeHandler} >Add Game To Office!</button>
      
      </div>
  );

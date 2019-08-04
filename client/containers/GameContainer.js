@@ -17,8 +17,8 @@ class GameContainer extends Component {
         return (
             <div className="game-container" >
               
-                <GameDisplay />
-                <GameCreator />
+                <GameDisplay {...this.props} />
+                <GameCreator {...this.props} />
             </div>
         );
     }

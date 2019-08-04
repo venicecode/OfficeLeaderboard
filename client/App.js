@@ -27,12 +27,12 @@ constructor(props) {
 
     user: {
         avatar: '',
-        username: '',
-        gamesPlaying: [],
+        username: 'Eric',
+        gamesPlaying: ['Smash Bros.', 'Beer Pong'],
     },
     games: [
         {
-            name: '',
+            name: 'Smash Bros.',
             users: {
                 1: '',
                 2: '',
@@ -116,26 +116,35 @@ changeUserRankHandler(gameName, users){
 
 };
 
-// *************************************************** COMPLETE THE LOGIC OF THESE TWO HANDLERS
-
-// rankUserUpHandler(game){
-//   this.setState({
-//     ...this.state,
-//     games: [
-
-//     ]
-//   })
-// }
-
-// rankUserDownHandler(game){
-//   this.setState({
-//     ...this.state,
-//     games: [
-      
-//     ]
-//   })
-// }
   
+componentDidMount() {
+  fetch("/api/employees/" + employeeid )
+    .then(res => res.json())
+    .then(
+      (result) => {
+        this.setState({
+          user: {
+            avatar: result.user.avatar,
+            username: result.user.username,
+            gamesPlaying: [
+              ...result.user.gamesPlaying
+            ],
+          },
+          games: {
+            ...result.games,
+          }
+        });
+      },
+      // Note: it's important to handle errors here
+      // instead of a catch() block so that we don't swallow
+      // exceptions from actual bugs in components.
+      (error) => {
+        this.setState({
+        
+        });
+      }
+    )
+}
 
 
   render(){ 

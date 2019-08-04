@@ -4,18 +4,20 @@ import {Box} from '@material-ui/core';
 
 class Game extends Component {
   render() { 
+    console.log(this.props);
+
     return ( 
         <div className="game">
-          <p>Game Name</p>
-          <ol>
+          <p>Example Name</p>
+          {/* <ol>
             <li>Devon</li>
             <li>Alex</li>
             <li>Vance</li>
             <li>Eric</li>
-          </ol>
-          <button>Rank Up</button>
-          <button>Rank Down</button>
-          <button>Join In!</button>
+          </ol> */}
+          <button onClick={this.props.changeUserRankHandler}>Rank Up</button>
+          <button onClick={this.props.changeUserRankHandler}>Rank Down</button>
+          <button onClick ={this.props.addGameToUser}>Join In!</button>
         </div>
     );
   }
