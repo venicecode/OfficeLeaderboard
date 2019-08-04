@@ -1,26 +1,34 @@
-/*
+  /*
   require pg for postgres
-  require .env to get variables from proccess.env
-
+  assume conString will be defined without requiring 'dotenv'
   the conString will be the login/password/database for elephantSQL
-  pool will automatically disconnect
-*/
-const fs = require('fs');
-const path = require('path');
+
+  pool will automatically disconnect you in 5-10 seconds instead of client keeping you connected indefinitely
+  */
+
+/* uncomment require('dotenv') to allow access to .env variables for local process i.e. 'node server/db/db.js' */
+// require('dotenv').config();
+
 const pg = require('pg');
-require('dotenv').config();
 const conString = process.env.POSTGRES_URL;
 const pool = new pg.Pool({ connectionString: conString });
 
-// TO DO // if db exists, don't throw an error.  BUT also means that db exists sooooo ???
-const dbinit = fs.readFileSync(path.resolve(__dirname, 'init_ol.sql')).toString();
-pool.query(dbinit)
-.then((res) => {
-  console.log(res);
-  pool.end();
-})
-.catch(err=>console.log(err))
+/* uncomment this whole thing + require .env to initialize a your database with tables for this project */
+// const fs = require('fs');
+// const path = require('path');
+// const dbinit = fs.readFileSync(path.resolve(__dirname, 'init_ol.sql')).toString();
+// pool.query(dbinit)
+// .then((res) => {
+//   console.log(res);
+//   pool.end();
+// })
+// .catch(err=>console.log(err))
 
-// assume the database is initialized and all tables are set...
+pool.query('SELECT NOW()')
+.then(res=>{
+  console.log(res.rows)
+  pool.end(()=>console.log('Disconnected from pool'))
+})
+.catch(err=>console.log(err));
 
 module.exports = pool;

@@ -1,4 +1,4 @@
-CREATE TABLE "companies" (
+CREATE TABLE IF NOT EXISTS "companies" (
 	"_id" serial NOT NULL,
 	"name" varchar(50) NOT NULL UNIQUE,
 	"imgurl" varchar(255),
@@ -7,56 +7,45 @@ CREATE TABLE "companies" (
   OIDS=FALSE
 );
 
-
-
-CREATE TABLE "offices" (
+CREATE TABLE IF NOT EXISTS "offices" (
 	"_id" serial NOT NULL,
 	"name" varchar(50) NOT NULL,
-	"companyid" integer NOT NULL UNIQUE,
+	"companyid" integer NOT NULL ,
 	CONSTRAINT "offices_pk" PRIMARY KEY ("_id")
 ) WITH (
   OIDS=FALSE
 );
 
-
-
-CREATE TABLE "employees" (
+CREATE TABLE IF NOT EXISTS "employees" (
 	"_id" serial NOT NULL,
 	"username" varchar(50) NOT NULL UNIQUE,
 	"password" VARCHAR(255) NOT NULL,
-	"officeid" integer NOT NULL UNIQUE,
+	"officeid" integer NOT NULL ,
 	"imgurl" varchar(255),
 	CONSTRAINT "employees_pk" PRIMARY KEY ("_id")
 ) WITH (
   OIDS=FALSE
 );
 
-
-
-CREATE TABLE "games" (
+CREATE TABLE IF NOT EXISTS "games" (
 	"_id" serial NOT NULL,
 	"name" varchar(50) NOT NULL,
-	"officeid" integer NOT NULL UNIQUE,
+	"officeid" integer NOT NULL,
 	"imgurl" varchar(255),
 	CONSTRAINT "games_pk" PRIMARY KEY ("_id")
 ) WITH (
   OIDS=FALSE
 );
 
-
-
-CREATE TABLE "stats" (
+CREATE TABLE IF NOT EXISTS "stats" (
 	"_id" serial NOT NULL,
-	"gameid" integer NOT NULL UNIQUE,
-	"usernameid" integer NOT NULL UNIQUE,
+	"gameid" integer NOT NULL,
+	"usernameid" integer NOT NULL,
 	"rank" integer NOT NULL,
 	CONSTRAINT "stats_pk" PRIMARY KEY ("_id")
 ) WITH (
   OIDS=FALSE
 );
-
-
-
 
 ALTER TABLE "offices" ADD CONSTRAINT "offices_fk0" FOREIGN KEY ("companyid") REFERENCES "companies"("_id");
 
