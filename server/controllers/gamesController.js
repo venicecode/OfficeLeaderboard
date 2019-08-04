@@ -9,7 +9,6 @@ console.log("Here is the office we are searching for in the DB: ",officeSearchTe
     //if we can't find the office throw an error
     //else return the info in the response body
     res.send({Game1: "Game_One", Game2: "Game_Two", Game3: "Game_Three"})
-    next();    
 }
 
 module.exports = gamesController;

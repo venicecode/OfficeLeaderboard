@@ -8,7 +8,6 @@ employeesController.getInfo = (req,res,next) => {
         //if we can't find the userID throw an error
         //else return the info in the response body
     res.send({avatar: "avatar", games: "games", username: "name"})
-    next();
 },
 
 employeesController.addGame = () => {
