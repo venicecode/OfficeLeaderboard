@@ -9,8 +9,7 @@ const port = process.env.PORT;
 const authRouter = require('./routes/authRoute.js');
 const gamesRouter = require('./routes/gamesRoute.js');
 const usersRouter = require('./routes/usersRoute.js');
-const scoreRouter = require('./routes/scoresRoute.js');
-
+const scoresRouter = require('./routes/scoresRoute.js');
 
 app.use(bodyParser.json());
 app.use(cookieParser());

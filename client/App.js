@@ -7,7 +7,6 @@ import {Button} from '@material-ui/core';
 
 import Dashboard from './containers/Dashboard.js';
 
-
 let theme = createMuiTheme({
   palette: {
     primary: deepPurple,
