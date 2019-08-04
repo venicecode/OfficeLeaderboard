@@ -8,15 +8,11 @@
 const fs = require('fs');
 const path = require('path');
 const pg = require('pg');
-const tableCreation = require('./tableCreation.js');
 require('dotenv').config();
 const conString = process.env.POSTGRES_URL;
 const pool = new pg.Pool({ connectionString: conString });
 
-/* TO DO *
-  try to initialize the db with node IF DOES NOT EXIST
-*/
-
+// TO DO // if db exists, don't throw an error.  BUT also means that db exists sooooo ???
 const dbinit = fs.readFileSync(path.resolve(__dirname, 'init_ol.sql')).toString();
 pool.query(dbinit)
 .then((res) => {
