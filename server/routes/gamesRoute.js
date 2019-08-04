@@ -9,7 +9,7 @@ gamesRouter.get('/:office',
     (req,res) => {res.status(200)}
 ) 
 
-gamesRouter.post('/:office:/:gameName/:userid',
+gamesRouter.post('/:office/:gamename/:userid',
     //creating a new game and putting the user in the ladder of the new game 
     gamesController.newGame,
     (req,res) => {res.status(200)}
