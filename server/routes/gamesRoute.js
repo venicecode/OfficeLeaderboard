@@ -8,6 +8,12 @@ gamesRouter.get('/:office',
     gamesController.getGames,
     (req,res) => {res.status(200)}
 ) 
+
+gamesRouter.post('/:office:/:gameName/:userid',
+    //creating a new game and putting the user in the ladder of the new game 
+    gamesController.newGame,
+    (req,res) => {res.status(200)}
+)
 // authRouter.post('/signup', authController.createUser);
 
 module.exports = gamesRouter;

@@ -19,6 +19,8 @@ statsController.moveUser = (req,res,next) => {
     console.log("Changing the following game: ", gameToChange);
     console.log("We are going to rank this user: ", userToMove);
     console.log("In this way: ", rankDirection);
+    //in req.body.rank you can specify "up", "down" or "last"
+    //req.body.rank "last" indicates that the user just joined the game so we want to add them to the bottom of the ladder
     //not sure how we will do this........
     res.send({NewLeaderBoard: "someLeaderBoardArr"}) 
 };
