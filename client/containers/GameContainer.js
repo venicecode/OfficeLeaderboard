@@ -17,7 +17,9 @@ class GameContainer extends Component {
         return (
             <div className="game-container" >
               
-                <GameDisplay {...this.props} />
+                <GameDisplay {...this.props} populateGameDisplayHandler={this.props.populateGameDisplayHandler} populateGameHandler={this.props.populateGameHandler}
+          addGameToUserHandler={this.props.addGameToUserHandler} setNewGameNameHandler={this.props.setNewGameNameHandler} addGameToOfficeHandler={this.props.addGameToOfficeHandler} 
+          changeUserRankHandler={this.props.changeUserRankHandler} />
                 <GameCreator {...this.props} />
             </div>
         );

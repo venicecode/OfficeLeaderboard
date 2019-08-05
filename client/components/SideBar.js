@@ -1,3 +1,11 @@
+/*
+Sidebar component: 
+1. This component contains information about the user. 
+2. Upon mounting, our onComponentDidMount lifecycle function invokes the 
+populateSideBarHandler to populate the sidebar with a user's information
+
+*/
+
 import React, {Component} from 'react';
 import ReactDom from 'react-dom';
 import Avatar from '@material-ui/core/Avatar';
@@ -7,26 +15,29 @@ import Game from './Game'
 class SideBar extends Component {
     constructor(props){
         super(props)
-
-
-
     }
 
-// onComponentDidMount(); 
+    // ************************THIS HAS BEEN TESTED- UNCOMMENT BEFORE DEPLOYMENT ************************
+
+// componentDidMount(){
+//   fetch('api/employees')
+//   .then(res => res.json())
+//   .then((result) => {
+//       this.props.populateSideBarHandler(result);
+//   })
+// }; 
+
 render() { 
-    console.log(this.props)
+
+    
     return ( 
     
         <div className= "side-bar" >
-        <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6-DHVt7d2Jtw5UKoj8X2GQdNh2FcfSRIdMDIu4-VcDmRmCdWy'}/>
-        <p>Username: {this.props.user.username}</p>
-        <p>Games Playing:</p>
-        <Game />
-        <ul>
-            {/* <li>{this.props.user.gamesPlaying[0]}</li>
-            <li>{this.props.user.gamesPlaying[1]}</li>
-            <li>{this.props.user.gamesPlaying[2]}</li> */}
-        </ul>
+        <img src={this.props.user.avatar}/>
+        <p>Username: </p>
+        <p>{this.props.user.userName}</p>
+        {/* <p>Games Playing:</p> */}
+     
         </div>
 
         );

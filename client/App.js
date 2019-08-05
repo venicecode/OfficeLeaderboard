@@ -20,52 +20,78 @@ theme = responsiveFontSizes(theme);
 
 
 class App extends Component {
+
 constructor(props) {
   super(props);
 
    this.state = {
-
-    user: {
-        avatar: '',
-        username: 'Eric',
-        gamesPlaying: ['Smash Bros.', 'Beer Pong'],
+    company: {
+      name: 'Codesmith',
+      id: 1
     },
+    office: {
+      name: 'LA',
+      id: 1
+    },
+    user: {
+        userid: '',
+        avatar: '',
+        userName: '',
+        gamesPlaying: [],
+    },
+    newGameName: '',
+    currentGame: '',
     games: [
-        {
-            name: 'Smash Bros.',
-            users: {
-                1: '',
-                2: '',
-                3: ''
-            },  
-        },
-    ],
-
-
-    
+      {
+      name: 'Smash Bros.',
+      users: {
+        1: 'Eric',
+        2: 'Devon',
+        3: 'Vance',
+      }
+    },
+  ], 
   };
-
+/*
+------------------------------------Binding Event Handlers-------------------------------- 
+*/
   this.populateSideBarHandler = this.populateSideBarHandler.bind(this);
+  this.populateGameDisplayHandler = this.populateGameDisplayHandler.bind(this);
+  this.populateGameHandler = this.populateGameHandler.bind(this);
   this.addGameToUserHandler = this.addGameToUserHandler.bind(this);
   this.addGameToOfficeHandler = this.addGameToOfficeHandler.bind(this);
-  // this.rankUserUpHandler = this.rankUserUpHandler.bind(this);
-  // this.rankUserDownHandler = this.rankUserDownHandler.bind(this);
   this.changeUserRankHandler = this.changeUserRankHandler.bind(this);
 
 }
 
+/*
+------------------------------------Event Handlers-------------------------------- 
+*/
 
- 
-populateSideBarHandler(){
+populateSideBarHandler(user){
   this.setState({
-    ...this.state,
-    user:{
-      avatar: avatar,
-      user: user,
-      gamesPlaying: gamesPlaying,
+      user:{
+      userid: user.userid,
+      avatar: user.avatar,
+      userName: user.userName,
+      gamesPlaying: user.gamesPlaying
     }
   })
 };
+
+populateGameDisplayHandler(games){
+  this.setState({
+    ...this.state,
+    games: [...games]
+    
+  })
+}
+
+populateGameHandler(games){
+  this.setState({
+    currentGame: games.gameName,
+  })
+}
 
 addGameToUserHandler(game){
   this.setState({
@@ -78,7 +104,15 @@ addGameToUserHandler(game){
           ],
         },
         games,
-      })};
+      })
+    };
+
+setNewGameNameHandler(game){
+  this.setState({
+    ...this.state,
+    newGameName: game.newGameName,
+  })
+}
 
 addGameToOfficeHandler(game){
   this.setState({
@@ -90,6 +124,8 @@ addGameToOfficeHandler(game){
   })
 };
 
+
+
 changeUserRankHandler(gameName, users){
 
   let index;
@@ -100,8 +136,6 @@ changeUserRankHandler(gameName, users){
       break;
     }
   }
-
-
 
   this.setState({
     ...this.state,
@@ -116,70 +150,52 @@ changeUserRankHandler(gameName, users){
 
 };
 
-  
-// componentDidMount() {
-//   fetch("/api/employees/" + employeeid )
-//     .then(res => res.json())
-//     .then(
-//       (result) => {
-//         this.setState({
-//           user: {
-//             avatar: result.user.avatar,
-//             username: result.user.username,
-//             gamesPlaying: [
-//               ...result.user.gamesPlaying
-//             ],
-//           },
-//           games: {
-//             ...result.games,
-//           }
-//         });
-//       },
-//       // Note: it's important to handle errors here
-//       // instead of a catch() block so that we don't swallow
-//       // exceptions from actual bugs in components.
-//       (error) => {
-//         this.setState({
-        
-//         });
-//       }
-//     )
-// }
-
-
+/*
+------------------------------------Rendering Our Dashboard -------------------------------- 
+*/
   render(){ 
-   
+
     return (
       <ThemeProvider theme={theme}>
-       <Dashboard {...this.state}/>
+       <Dashboard {...this.state} populateSideBarHandler={this.populateSideBarHandler}/>
       </ThemeProvider>
       
     );
   }
 };
 
- 
 
 
+/* We don't use this in our main app.js but i didn't want to delete it
 
-//populateSideBar = () =>{
-  //get request for username, avatar, and games
-  
-//}
-
-// addGameToUser = () =>{
-//   //post request to add user to game
-// };
-
-// addGameToOffice = () =>{
-// //post request 
-// };
-
-// rankUserUp = () =>{
-
-// };
-
-// rankUserDown = () => {
-
-// };
+componentDidMount() {
+  fetch("/api/employees/" + this.state.userid ) // If this doesn't work, try this.getState to retrieve the userid
+    .then(res => res.json())
+    .then(
+      (result) => {
+        this.setState({
+          user: {
+            avatar: result.user.avatar,
+            username: result.user.username,
+            userid: result.user.userid,
+            gamesPlaying: [
+              ...result.user.gamesPlaying
+            ],
+          },
+          games: {
+            ...result.games,
+          }
+        });
+      },
+      // Note: it's important to handle errors here
+      // instead of a catch() block so that we don't swallow
+      // exceptions from actual bugs in components.
+      (error) => {
+        this.setState({
+        
+        });
+      }
+    )
+}
+*/
 export default App;
