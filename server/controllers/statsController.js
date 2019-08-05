@@ -1,20 +1,23 @@
 const statsController = {};
 const pool = require('../db/db.js');
 
+//Given an office and a game, return an array of user's and their rank. 
 statsController.getLeaderBoard = (req,res,next) => {
     const officeHostingGame = req.params.office;
     const gameAtThisOffice = req.params.game;
     console.log("Searching in the following office: ", officeHostingGame);
     console.log("Searching stats for the following game in the DB: ", gameAtThisOffice);
-    let data = {}; 
+    let data = []; 
      //create the empty object that will capture the response from the database
     //search the DB for all of the usernames and thier ranks (asynch)
-     //pool.query [this is the query stuff]
-    //.then
-        //if we can't find the office throw an error
-        //else return the info in the response body
-    //data = result.rows[0]; 
-    res.send({Username1: "Vance", Rank1: "1", Username2: "Alex", Rank2: "2", Username3: "Tang", Rank3: "3"})
+    pool.query(`SELECT offices.name as officelocation, games.name as gamename, employees.username, employees.imgurl, stats.rank from games join stats on games._id = gameid join employees on usernameid = employees._id join offices on games.officeid = offices._id where gameid = $1 order by rank asc;`,[gameAtThisOffice])
+    .then(result => {
+        console.log(result.rows);
+        data = result.rows;
+        //return the info in the response, the game ids for this office
+        res.json(data);
+        })
+    // res.send({Username1: "Vance", Rank1: "1", Username2: "Alex", Rank2: "2", Username3: "Tang", Rank3: "3"})
 }
 
 statsController.moveUser = (req,res,next) => {
