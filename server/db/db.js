@@ -24,4 +24,11 @@ const pool = new pg.Pool({ connectionString: conString });
 // })
 // .catch(err=>console.log(err))
 
+pool.query('SELECT NOW()')
+.then(res=>{
+  console.log(res.rows)
+  //pool.end(()=>console.log('Disconnected from pool'))
+})
+.catch(err=>console.log(err));
+
 module.exports = pool;
