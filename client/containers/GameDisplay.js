@@ -59,28 +59,32 @@ class GameDisplay extends Component {
 
 // }
     render(){
-       console.log(this.props)
-        const games = [...this.props.games];
-        
-        // for (let i = 0; i < props.games.length; i++){
-        //     let game = props.games[i];
 
-        //     games.push(
-        //         <div key={i}>
-        //             <Game name={game.name} changeUserRank={this.props.changeUserRankHandler} addGameToUser={this.props.addGameToUserHandler} />
-        //         </div>
-        //     )
-        // };
+
+        const updatedGamesList = [];
+        
+        for (let i = 0; i < this.props.games.length; i++){
+
+            let uniqueGame = this.props.games[i];
+
+            updatedGamesList.push(
+                <div key={i}>
+                    <Game name={uniqueGame.name} changeUserRank={this.props.changeUserRankHandler} 
+                    addGameToUser={this.props.addGameToUserHandler} users={uniqueGame.users} />
+                </div>
+            )
+              
+        };
 
 
         return (
-            <div className="game-display" >
-                {/* <Game {...this.props}/> */}
-               <Game currentGame ={this.props.games[0]} />
+            <div className="game-display" >  
+             {updatedGamesList}
             </div>
         );
     }
-}
+};
+
 
 
 export default GameDisplay;
