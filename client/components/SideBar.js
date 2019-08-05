@@ -29,14 +29,25 @@ class SideBar extends Component {
 
 render() { 
 
+    const employeeGameList = this.props.user.gamesPlaying;
+    const gamesPlayingList = [];
+
+    for (let i = 0; i < employeeGameList.length; i++ ){
+        gamesPlayingList.push(
+            <li>{employeeGameList[i]}</li>
+        );
+    }
     
     return ( 
     
         <div className= "side-bar" >
-        <img src={this.props.user.avatar}/>
+        <img className="avatar" src={this.props.user.avatar}/>
         <p>Username: </p>
         <p>{this.props.user.userName}</p>
-        {/* <p>Games Playing:</p> */}
+        <p>Games Playing:</p>
+        <ul>
+            {gamesPlayingList}
+        </ul>
      
         </div>
 
