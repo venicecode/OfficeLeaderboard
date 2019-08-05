@@ -7,8 +7,6 @@ class HeaderMenu extends Component {
         <h1>Company: {this.props.company.name}</h1>
         <h2>Office: {this.props.office.name}</h2>
         </div>
-
-    
     );
   }
 }

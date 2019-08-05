@@ -13,7 +13,7 @@ class Game extends Component {
 }
 
 render() { 
-  console.log(`IN GAME: ${Object.entries(this.props.users)}`)
+
   const userArray = Object.entries(this.props.users);
  
   const rankingsList = [];

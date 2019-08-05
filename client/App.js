@@ -34,9 +34,9 @@ constructor(props) {
     },
     user: {
         userid: '',
-        avatar: '',
+        avatar: 'https://www.secondcity.com/wp-content/uploads/2018/11/Eric-Stallings.jpg',
         userName: '',
-        gamesPlaying: [],
+        gamesPlaying: ['Smash Bros'],
     },
     newGameName: '',
     currentGame: '',
