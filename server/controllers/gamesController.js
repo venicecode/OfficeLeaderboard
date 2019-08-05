@@ -34,12 +34,18 @@ gamesController.newGame = (req,res,next) => {
     pool.query('INSERT INTO games(name, officeid) VALUES($1, $2) RETURNING *', [newGameName, officeToUpdate])
     .then(result => {
       console.log(result.rows);
+      console.log("Inserted a new game into games called: ", newGameName);
       data = result.rows;
       res.send(data);
+    //   const gameid = result.rows[0]._id;
+    //     pool.query('INSERT INTO stats(usernameid, gameid, rank) VALUES($1, $2, 1) RETURNING *', [creatorsUserId, gameid, 1])
+    //         .then(result => {
+    //             console.log("Inserted to the stats of the newly created game: ", creatorsUserId);
+    //         })
+    //         .catch(e=>next(e));  
     })
     .catch(e=>next(e));
     //put the user at the bottom of the game once it is created.
-    
     //res.send({Game1: "Game_One", Game2: "Game_Two", Game3: "Game_Three", Game4: "Game_Four"})
 };
 
