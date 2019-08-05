@@ -27,7 +27,7 @@ const pool = new pg.Pool({ connectionString: conString });
 pool.query('SELECT NOW()')
 .then(res=>{
   console.log(res.rows)
-  pool.end(()=>console.log('Disconnected from pool'))
+  //pool.end(()=>console.log('Disconnected from pool'))
 })
 .catch(err=>console.log(err));
 
