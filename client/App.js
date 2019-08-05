@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
+import {Route, Redirect} from 'react-router-dom';
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import deepPurple from '@material-ui/core/colors/deepPurple';
 import purple from '@material-ui/core/colors/purple';
 import Dashboard from './containers/Dashboard.js';
+import Login from './components/Auth/Login';
 
 let theme = createMuiTheme({
   palette: {
@@ -24,6 +26,7 @@ constructor(props) {
   super(props);
 
    this.state = {
+    isSigned: false,
     company: {
       name: 'Codesmith',
       id: 1
@@ -68,7 +71,7 @@ constructor(props) {
   this.addGameToUserHandler = this.addGameToUserHandler.bind(this);
   this.addGameToOfficeHandler = this.addGameToOfficeHandler.bind(this);
   this.changeUserRankHandler = this.changeUserRankHandler.bind(this);
-
+  this.loginHandler = this.loginHandler.bind(this);
 }
 
 /*
@@ -157,14 +160,55 @@ changeUserRankHandler(gameName, users){
 
 };
 
+loginHandler(user){
+fetch('/api/auth/login', {
+  method: 'POST',
+  headers: {'Content-Type': 'application/json'},
+  body: JSON.stringify(user)
+  })
+.then(data => data.json())
+.then(data => this.setState({
+  ...this.state,
+  isSigned: true,
+  user: {...this.state.user, userid: data.id, userName: data.username}
+}
+))
+.catch(error => console.error(error));
+}
+signupHandler(){
+  fetch('/api/auth/signup', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(user)
+    })
+  .then(data => data.json())
+  .then(data => this.setState({
+    ...this.state,
+    isSigned: true,
+    user: {...this.state.user, userid: data.id, userName: data.username}
+  }
+  ))
+  .catch(error => console.error(error));
+}
 /*
 ------------------------------------Rendering Our Dashboard -------------------------------- 
 */
   render(){ 
-
     return (
       <ThemeProvider theme={theme}>
-       <Dashboard {...this.state} populateSideBarHandler={this.populateSideBarHandler}/>
+        <Route 
+        path = '/dashboard' 
+        render = {() => <Dashboard {...this.state} 
+        populateSideBarHandler={this.populateSideBarHandler}></Dashboard>}></Route>
+        <Route 
+        path = '/' 
+        exact 
+        render = {() => (this.state.isSigned ? 
+        <Redirect to = '/dashboard'></Redirect> 
+        : <Login 
+        loginHandler = {this.loginHandler}
+        signupHandler = {this.signupHandler}></Login>)}></Route>
+        <Route path = '/game/:id' render = {() => <Game></Game>}></Route>
       </ThemeProvider>
       
     );
