@@ -3,3 +3,5 @@ build
 .DS_store
 .env
 npm-debug.log
+key.pem
+csr.pem
