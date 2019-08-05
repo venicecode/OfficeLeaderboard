@@ -34,9 +34,9 @@ constructor(props) {
     },
     user: {
         userid: '',
-        avatar: '',
+        avatar: 'https://www.secondcity.com/wp-content/uploads/2018/11/Eric-Stallings.jpg',
         userName: '',
-        gamesPlaying: [],
+        gamesPlaying: ['Smash Bros'],
     },
     newGameName: '',
     currentGame: '',
@@ -47,6 +47,14 @@ constructor(props) {
         1: 'Eric',
         2: 'Devon',
         3: 'Vance',
+      }
+    },
+    {
+      name: 'Rage Cage.',
+      users: {
+        1: 'Jay',
+        2: 'Michele',
+        3: 'Justin',
       }
     },
   ], 
