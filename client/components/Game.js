@@ -7,43 +7,35 @@ import {Box} from '@material-ui/core';
 
 
 class Game extends Component {
-//TEST COMPONENT DID MOUNT 
-// componentDidMount(){
-// const dummyGame = {
-//     name: 'Smash Bros.',
-//     users: {
-//         1: 'Eric',
-//         2: 'Vance',
-//         3: 'Alex' 
-//     },
-//   }
-//   this.props.populateGameHandler(dummyGame);
-// }
+  constructor(props){
+    super(props);
 
-     
-  // componentDidMount(){
-  //   fetch('api/stats/gameid')
-  //   .then(res => res.json())
-  //   .then((result) => {
-  //       this.props.populateGameHandler(result);
-  //   })
-    
+}
+
+render() { 
+  console.log(`IN GAME: ${Object.entries(this.props.users)}`)
+  const userArray = Object.entries(this.props.users);
  
+  const rankingsList = [];
 
-  render() { 
-    // console.log(this.props);
-   
+  for (let i = 0; i < userArray.length; i++){
+    let user = userArray[i];
 
+    rankingsList.push(
+      <li className="ranking-flex">
+      {user}
+      </li>
+      );
+  }
+
+
+  // console.log(`${props.games}`)
     return ( 
         <div className="game">
-          <p>{this.props.currentGame.name}</p>
-          {/* <ol>
-            <li>{this.props.game[0]}</li>
-            <li>Alex</li>
-            <li>Vance</li>
-            <li>Eric</li>
-          </ol> */}
-          <button onClick={this.props.getGameStatsHandler}>Leaderboard</button>
+          <p>{this.props.name}</p>
+          <ul>{rankingsList}</ul>
+           
+          {/* <button onClick={this.props.getGameStatsHandler}>Leaderboard</button> */}
           <button onClick={this.props.changeUserRankHandler}>Rank Up</button>
           <button onClick={this.props.changeUserRankHandler}>Rank Down</button>
           <button onClick ={this.props.addGameToUser}>Join In!</button>
@@ -53,14 +45,3 @@ class Game extends Component {
 }
  
 export default Game;
-
-/*
-{
-            name: 'Smash Bros.',
-            users: {
-                1: '',
-                2: '',
-                3: ''
-            },  
-        },
-*/
