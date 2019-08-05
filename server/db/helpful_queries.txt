@@ -1,0 +1,4 @@
+\/copy paste into psql cli to remove all tables. Alter if needed.\/
+
+drop table companies, employees, games, offices, stats;
+

@@ -5,3 +5,4 @@ build
 npm-debug.log
 key.pem
 csr.pem
+package-lock.json
