@@ -14,6 +14,9 @@ const statsRouter = require('./routes/statsRoute.js');
 //handle parsing
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use('/', express.static(path.join(__dirname, '../build')));
+
+// app.use('/', express.static(path.join(__dirname, '/build')))
 
 app.get('/*', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, '../index.html'));
@@ -23,9 +26,9 @@ app.use('/api/auth', authRouter);
 app.use('/api/games', gamesRouter);
 app.use('/api/employees', employeesRouter);
 app.use('/api/stats', statsRouter);
-
-
-
+app.get('/dashboard', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, '../index.html'));
+})
 //catch all for unknown routes
 app.use((req,res) => res.sendStatus(404));
 

@@ -72,6 +72,7 @@ constructor(props) {
   this.addGameToOfficeHandler = this.addGameToOfficeHandler.bind(this);
   this.changeUserRankHandler = this.changeUserRankHandler.bind(this);
   this.loginHandler = this.loginHandler.bind(this);
+  this.signupHandler = this.signupHandler.bind(this);
 }
 
 /*
@@ -134,8 +135,6 @@ addGameToOfficeHandler(game){
   })
 };
 
-
-
 changeUserRankHandler(gameName, users){
 
   let index;
@@ -182,13 +181,16 @@ signupHandler(user){
     body: JSON.stringify(user)
     })
   .then(data => data.json())
-  .then(data => this.setState({
+  .then(data => {
+    
+    this.setState({
     ...this.state,
     isSigned: true,
     user: {...this.state.user, userid: data.user.id, userName: data.user.username}
-  }
-  ))
+  })
+})
   .catch(error => console.error(error));
+
 }
 /*
 ------------------------------------Rendering Our Dashboard -------------------------------- 

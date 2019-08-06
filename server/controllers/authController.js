@@ -47,10 +47,6 @@ authController.signUp = (req, res) => {
   const un = req.body.username;
   bcrypt.hash(pw, SALTROUNDS, function(err, hash) {
     if (err) return res.status(500).json({err: 'there was an error is querying the database: ' + err});
-      // query to insert into employees
-      const insertEmployeesText = `INSERT INTO employees(username, password, officeid) VALUES($1, $2, $3) RETURNING *`;
-      // parameters to insert into placeholders
-      const insertEmployeesParams = [un, hash, 1];
       //connects to the client
       pool.connect();
       // query to find if a user with the username exists already
@@ -58,6 +54,9 @@ authController.signUp = (req, res) => {
         if (err) return res.status(500).json({err: 'there was an error is querying the database: ' + err});
         if (result.rowCount.length > 0) return res.status(400).json({user: req.body});
       })
+      const insertEmployeesText = `INSERT INTO employees(username, password, officeid) VALUES($1, $2, $3) RETURNING *`;
+      // parameters to insert into placeholders
+      const insertEmployeesParams = [un, hash, 1];
       // query to insert a new employee
       pool.query(insertEmployeesText, insertEmployeesParams, (err, result) => {
         if (err) return res.status(500).json({err: 'there was an error is querying the database: ' + err});
@@ -104,6 +103,7 @@ authController.login = (req, res) => {
         user: {username: result.rows[0].username, id: result.rows[0]._id}
       }
       jwt.sign(payload, process.env.JWT_KEY, { algorithm: 'HS256', expiresIn: '1 day'}, (err, token) => {
+        pool.end();
         res.cookie('token', token, {httpOnly: true});
         res.cookie('id', result.rows[0]._id);
         return res.status(200).json({user:{username: result.rows[0].username, id: result.rows[0]._id}, token: token, isSigned: true});
