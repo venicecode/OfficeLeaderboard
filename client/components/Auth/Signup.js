@@ -19,7 +19,7 @@ const Signup = (props) => {
       }
       const user = {username, password}
       console.log(user);
-      props.signupHandler(user)
+      props.signupHandler(user);
       }}>Submit</Button>
   </React.Fragment>);
 }
