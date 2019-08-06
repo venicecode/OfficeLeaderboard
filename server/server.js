@@ -4,8 +4,6 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const port = process.env.PORT;
-// const passport = require('passport');
-// const passportConfig = require('./config/passport.js');
 const path = require('path');
 // routes
 const authRouter = require('./routes/authRoute.js');
@@ -17,12 +15,10 @@ const statsRouter = require('./routes/statsRoute.js');
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-// app.use(passport.initialize());
-// passportConfig(passport);
-
-app.get('/', (req, res) => {
+app.get('/*', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, '../index.html'));
 })
+// 
 app.use('/api/auth', authRouter);
 app.use('/api/games', gamesRouter);
 app.use('/api/employees', employeesRouter);

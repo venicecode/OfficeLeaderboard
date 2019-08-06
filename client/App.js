@@ -175,7 +175,7 @@ fetch('/api/auth/login', {
 ))
 .catch(error => console.error(error));
 }
-signupHandler(){
+signupHandler(user){
   fetch('/api/auth/signup', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -207,7 +207,8 @@ signupHandler(){
         <Redirect to = '/dashboard'></Redirect> 
         : <Login 
         loginHandler = {this.loginHandler}
-        signupHandler = {this.signupHandler}></Login>)}></Route>
+        signupHandler = {this.signupHandler}
+        ></Login>)}></Route>
         <Route path = '/game/:id' render = {() => <Game></Game>}></Route>
       </ThemeProvider>
       

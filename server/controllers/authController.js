@@ -15,26 +15,27 @@ authController.validateUserInput = (req, res, next) => {
   const errors = {};
   if (!username) errors.username = 'You must provide a username';
   if (!password) errors.password = 'You must provide a password';
-  if (password.length < 6)errors.passwordLength = 'Your password must be longer than 6 characters';
+  if (password.length < 6) errors.passwordLength = 'Your password must be longer than 6 characters';
   if (Object.entries(errors).length === 0) return next();
+  console.log('there was an error in validating');
   return res.status(400).json(errors);
 }
 
 // check to see if the jwt has laready been signed
 authController.isSigned = (req, res, next) => {
   console.log('checking if user is Signed');
-  const {username, password} = req.body;
+  const {username} = req.body;
   // if the token is empty continue onto the next piece of middleware (either signup or login)
   if (!req.cookies.token) return next();
   // otherwise verify the token in the req body, using the jwt_key from the .env file
   jwt.verify(req.cookies.token, process.env.JWT_KEY, (err, decoded) => {
-    if (err) return res.status(500).json({err})
     if (decoded) {
-      // if the decoded token comes back exit out of the req and sendback the req
-      return res.status(200).json({isSigned: true, user: {username}});
+      return res.status(200).json({isSigned: true, user: {username, id: req.cookies.id}});
     }
-    return next();
-  })
+    else {
+      return next();
+    }
+})
 }
 
 // set info for userid and username when 
@@ -70,6 +71,7 @@ authController.signUp = (req, res) => {
           pool.end();
           // return info about the user including the username, id, and token
           res.cookie('token', token, {httpOnly: true});
+          res.cookie('id', result.rows[0]._id);
           return res.status(200).json({user: {username: result.rows[0].username, id: result.rows[0]._id}, isSigned: true});
         });
       });
@@ -103,6 +105,7 @@ authController.login = (req, res) => {
       }
       jwt.sign(payload, process.env.JWT_KEY, { algorithm: 'HS256', expiresIn: '1 day'}, (err, token) => {
         res.cookie('token', token, {httpOnly: true});
+        res.cookie('id', result.rows[0]._id);
         return res.status(200).json({user:{username: result.rows[0].username, id: result.rows[0]._id}, token: token, isSigned: true});
       });
     }
