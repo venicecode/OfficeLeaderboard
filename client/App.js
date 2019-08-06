@@ -170,7 +170,7 @@ fetch('/api/auth/login', {
 .then(data => this.setState({
   ...this.state,
   isSigned: true,
-  user: {...this.state.user, userid: data.id, userName: data.username}
+  user: {...this.state.user, userid: data.user.id, userName: data.user.username}
 }
 ))
 .catch(error => console.error(error));
@@ -185,7 +185,7 @@ signupHandler(){
   .then(data => this.setState({
     ...this.state,
     isSigned: true,
-    user: {...this.state.user, userid: data.id, userName: data.username}
+    user: {...this.state.user, userid: data.user.id, userName: data.user.username}
   }
   ))
   .catch(error => console.error(error));
