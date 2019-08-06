@@ -1,5 +1,6 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
+const passport = require('passport');
 const pool = require('../db/db.js');
 const key = process.env.JWT_KEY;
 

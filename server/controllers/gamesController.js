@@ -2,6 +2,7 @@
 const gamesController = {};
 const pool = require('../db/db.js');
 
+//When given an office id, return the list of games that belong to that office 
 gamesController.getGames = (req,res,next) => {
     const officeSearchTerm = req.params.office;
     console.log("Here is the office we are searching for in the DB: ",officeSearchTerm);
@@ -13,7 +14,7 @@ gamesController.getGames = (req,res,next) => {
         .then(result => {
         console.log(result.rows);
         data = result.rows;
-        //return the info in the response
+        //return the info in the response, the game ids for this office
         res.json(data);
         })
     .catch(e=>next(e));
@@ -22,6 +23,7 @@ gamesController.getGames = (req,res,next) => {
     //res.send({Game1: "Game_One", Game2: "Game_Two", Game3: "Game_Three"})
 };
 
+//Given a game name, an officeid and a userid: 1) add a new game to the list of games for the office 2)add the user to that game at rank 1  
 gamesController.newGame = (req,res,next) => {
     const newGameName = req.params.gamename;
     const officeToUpdate = req.params.office;
@@ -34,12 +36,18 @@ gamesController.newGame = (req,res,next) => {
     pool.query('INSERT INTO games(name, officeid) VALUES($1, $2) RETURNING *', [newGameName, officeToUpdate])
     .then(result => {
       console.log(result.rows);
+      console.log("Inserted a new game into games called: ", newGameName);
       data = result.rows;
-      res.send(data);
+      const gameid = result.rows[0]._id;
+        pool.query('INSERT INTO stats(usernameid, gameid, rank) VALUES($1, $2, $3) RETURNING *', [creatorsUserId, gameid, 1])
+            .then(result => {
+                console.log("Inserted to the stats of the newly created game: ", creatorsUserId);
+                res.send(data);
+            })
+            .catch(e=>next(e));  
     })
     .catch(e=>next(e));
     //put the user at the bottom of the game once it is created.
-    
     //res.send({Game1: "Game_One", Game2: "Game_Two", Game3: "Game_Three", Game4: "Game_Four"})
 };
 

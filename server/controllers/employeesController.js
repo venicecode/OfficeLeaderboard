@@ -1,6 +1,7 @@
 const employeesController = {};
 const pool = require('../db/db.js');
 
+//Given a userid return the avatar and username 
 employeesController.getInfo = (req,res,next) => {
     const userSearchTerm = req.params.userid;
     console.log("Here is the userID we are looking for in the DB: ",userSearchTerm);
@@ -11,7 +12,8 @@ employeesController.getInfo = (req,res,next) => {
     .then(result => {
       console.log(result.rows);
       data = result.rows[0];
-      res.json({avatar: data.imgurl, username: data.username});
+      res.locals.data = {avatar: data.imgurl, username: data.username};
+      next();
     })
     .catch(e=>next(e));
         //return the info in the response body
