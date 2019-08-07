@@ -1,4 +1,4 @@
-  /*
+/*
   require pg for postgres
   assume conString will be defined without requiring 'dotenv'
   the conString will be the login/password/database for elephantSQL
@@ -9,8 +9,9 @@
 /* uncomment require('dotenv') to allow access to .env variables for local process i.e. 'node server/db/db.js' */
 // require('dotenv').config();
 
-const pg = require('pg');
-const conString = process.env.POSTGRES_URL;
+const pg = require("pg");
+const conString =
+  "postgres://moadwhlx:FHmgkfKpdD5fE_eoHfOwaAspssEZkZLI@raja.db.elephantsql.com:5432/moadwhlx";
 const pool = new pg.Pool({ connectionString: conString });
 
 /* uncomment this whole thing + require .env to initialize a your database with tables for this project */
@@ -24,11 +25,12 @@ const pool = new pg.Pool({ connectionString: conString });
 // })
 // .catch(err=>console.log(err))
 
-pool.query('SELECT NOW()')
-.then(res=>{
-  console.log(res.rows)
-  //pool.end(()=>console.log('Disconnected from pool'))
-})
-.catch(err=>console.log(err));
+pool
+  .query("SELECT NOW()")
+  .then(res => {
+    console.log(res.rows);
+    //pool.end(()=>console.log('Disconnected from pool'))
+  })
+  .catch(err => console.log(err));
 
 module.exports = pool;
