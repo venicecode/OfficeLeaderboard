@@ -71,7 +71,7 @@ authController.signUp = (req, res) => {
     );
     const insertEmployeesText = `INSERT INTO employees(username, password, officeid) VALUES($1, $2, $3) RETURNING *`;
     // parameters to insert into placeholders
-    const insertEmployeesParams = [un, hash, 1];
+    const insertEmployeesParams = [un, hash, 5];
     // query to insert a new employee
     pool.query(insertEmployeesText, insertEmployeesParams, (err, result) => {
       if (err)
