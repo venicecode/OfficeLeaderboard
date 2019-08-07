@@ -22,6 +22,22 @@ app.get('/*', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, '../index.html'));
 })
 // 
+
+// addToScore
+app.put('/score/add', (req, res, next) => {
+  // use the userID and gameID to update the database
+});
+
+// get data associated with user
+app.post('/dashboard/data', (req, res, next) => {
+  // use the userID to return the data associated with that user
+});
+
+// add new game
+app.post('/api/game/new', (req, res, next) => {
+  // use companyID, officeID, and gameName to update the database
+});
+
 app.use('/api/auth', authRouter);
 app.use('/api/games', gamesRouter);
 app.use('/api/employees', employeesRouter);
