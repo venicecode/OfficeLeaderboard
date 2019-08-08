@@ -24,6 +24,9 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   loginButtonHandler: user => {
     dispatch(actions.employeeLogin(user));
+  },
+  signUpButtonHandler: user => {
+    dispatch(actions.employeeSignUp(user));
   }
 });
 
@@ -39,86 +42,25 @@ let theme = createMuiTheme({
 
 theme = responsiveFontSizes(theme);
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isSigned: false,
-      user: {
-        userid: "",
-        userName: ""
+const App = props => (
+  <ThemeProvider theme={theme}>
+    <Route path="/dashboard" render={() => <Dashboard {...props} />} />
+    <Route
+      path="/"
+      exact
+      render={() =>
+        props.isSigned ? (
+          <Redirect to="/dashboard" />
+        ) : (
+          <Login
+            loginHandler={props.loginButtonHandler}
+            signupHandler={props.signUpButtonHandler}
+          />
+        )
       }
-    };
-
-    this.loginHandler = this.loginHandler.bind(this);
-    this.signupHandler = this.signupHandler.bind(this);
-  }
-
-  loginHandler(user) {
-    fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user)
-    })
-      .then(data => data.json())
-      .then(data =>
-        this.setState({
-          ...this.state,
-          isSigned: true,
-          user: {
-            ...this.state.user,
-            userid: data.user.id,
-            userName: data.user.username
-          }
-        })
-      )
-      .catch(error => console.error(error));
-  }
-  signupHandler(user) {
-    fetch("/api/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user)
-    })
-      .then(data => data.json())
-      .then(data => {
-        this.setState({
-          ...this.state,
-          isSigned: true,
-          user: {
-            ...this.state.user,
-            userid: data.user.id,
-            userName: data.user.username
-          }
-        });
-      })
-      .catch(error => console.log(error));
-  }
-
-  render() {
-    return (
-      <ThemeProvider theme={theme}>
-        <Route path="/dashboard" render={() => <Dashboard {...this.props} />} />
-        <Route
-          path="/"
-          exact
-          render={() =>
-            this.props.isSigned ? (
-              <Redirect to="/dashboard" />
-            ) : (
-              <Login
-                loginHandler={this.props.loginButtonHandler}
-                signupHandler={this.signupHandler}
-              />
-            )
-          }
-        />
-        <Route path="/game/:id" render={() => <Game />} />
-      </ThemeProvider>
-    );
-  }
-}
+    />
+  </ThemeProvider>
+);
 
 export default connect(
   mapStateToProps,
