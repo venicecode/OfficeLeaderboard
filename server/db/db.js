@@ -26,9 +26,11 @@ const pool = new pg.Pool({ connectionString: conString });
 // .catch(err=>console.log(err))
 
 pool
-  .query("SELECT NOW()")
+  .query("SELECT * FROM companies;")
   .then(res => {
+    console.log('connected...');
     console.log(res.rows);
+    console.log('COMPLETED');
     //pool.end(()=>console.log('Disconnected from pool'))
   })
   .catch(err => console.log(err));
