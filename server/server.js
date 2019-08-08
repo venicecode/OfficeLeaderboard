@@ -13,6 +13,11 @@ const statsRouter = require("./routes/statsRoute.js");
 
 //handle parsing
 app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({
+//   extended: true
+// }));
+
+
 app.use(cookieParser());
 if (process.env.NODE_ENV === "production") {
   app.use("/", express.static(path.join(__dirname, "../build")));
@@ -22,9 +27,7 @@ if (process.env.NODE_ENV === "production") {
 // 
 
 // addToScore
-app.put('/score/add', (req, res, next) => {
-  // use the userID and gameID to update the database
-});
+app.put('/score/add', statsRouter);
 
 // get data associated with user
 app.post('/dashboard/data', (req, res, next) => {
@@ -35,6 +38,8 @@ app.post('/dashboard/data', (req, res, next) => {
 app.post('/api/game/new', (req, res, next) => {
   // use companyID, officeID, and gameName to update the database
 });
+
+app.get('/getAll', authRouter);
 
 app.use('/api/auth', authRouter);
 app.use('/api/games', gamesRouter);

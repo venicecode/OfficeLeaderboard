@@ -7,9 +7,11 @@ const authController = {};
 
 // check to make sure the user puts in valid inputs on front-end
 authController.validateUserInput = (req, res, next) => {
-  console.log("validating user input");
-  console.log("req.body: ", req.body);
+  console.log('VALIDATE USER INPUT');
+  // console.log("req.body: ", req.body);
   let { username, password } = req.body;
+  // console.log('req.body.username: ', username);
+  // console.log('req.body.password: ', password);
   username = username.trim();
   password = password.trim();
   const errors = {};
@@ -17,14 +19,17 @@ authController.validateUserInput = (req, res, next) => {
   if (!password) errors.password = "You must provide a password";
   if (password.length < 6)
     errors.passwordLength = "Your password must be longer than 6 characters";
-  if (Object.entries(errors).length === 0) return next();
-  console.log("there was an error in validating");
-  return res.status(400).json(errors);
+  if (Object.entries(errors).length === 0) {
+    return next();
+  } else {
+    console.log("there was an error in validating");
+    return res.status(400).json(errors);
+  }
 };
 
 // check to see if the jwt has laready been signed
 authController.isSigned = (req, res, next) => {
-  console.log("checking if user is Signed");
+  console.log('IS SIGNED');
   const { username } = req.body;
   // if the token is empty continue onto the next piece of middleware (either signup or login)
   if (!req.cookies.token) return next();
@@ -44,39 +49,46 @@ authController.isSigned = (req, res, next) => {
 
 // auth logic to create a new user
 authController.signUp = (req, res) => {
-  console.log("trying to sign up user");
+  console.log('SIGN UP');
   const pw = req.body.password;
   const un = req.body.username;
+  // console.log('check');
+  // console.log(un);
+  // console.log(pw);
+  // console.log('check');
   bcrypt.hash(pw, SALTROUNDS, function(err, hash) {
     if (err)
       return res
-        .status(500)
+        .status(501)
         .json({ err: "there was an error is querying the database: " + err });
     //connects to the client
     pool.connect();
     // query to find if a user with the username exists already
     pool.query(
-      "select * from employees where username = $1",
+      "select * from employees where name = $1",
       [un],
       (err, result) => {
         if (err) {
-          return res.status(500).json({
+          console.log(`error in the signUp query`);
+          return res.status(502).json({
             err: "there was an error is querying the database: " + err
           });
         }
         if (result.rowCount.length > 0) {
+          console.log(`user has been found in the signup query`);
           return res.status(400).json({ user: req.body });
         }
       }
     );
-    const insertEmployeesText = `INSERT INTO employees(username, password, officeid) VALUES($1, $2, $3) RETURNING *`;
+    const insertEmployeesText = `INSERT INTO employees(name, userpass, office) VALUES($1, $2, $3) RETURNING *`;
     // parameters to insert into placeholders
     const insertEmployeesParams = [un, hash, 1];
+    console.log(insertEmployeesParams);
     // query to insert a new employee
     pool.query(insertEmployeesText, insertEmployeesParams, (err, result) => {
       if (err)
         return res
-          .status(500)
+          .status(503)
           .json({ err: "there was an error is querying the database: " + err });
       const payload = {
         success: true,
@@ -108,7 +120,12 @@ authController.signUp = (req, res) => {
 
 // logic to check whether user credentials match password on file
 authController.login = (req, res) => {
-  console.log("trying to login user");
+  console.log('LOG IN');
+};
+
+// logic to check whether user credentials match password on file
+authController.login = (req, res) => {
+  console.log('LOG IN');
   const un = req.body.username;
   const pw = req.body.password;
   // compare hashed password with password put into Login.js component
@@ -123,7 +140,7 @@ authController.login = (req, res) => {
     if (err) {
       console.log(err);
       return res
-        .status(500)
+        .status(504)
         .json({ err: "there was an error is querying the database: " + err });
     }
     console.log(result);
@@ -131,7 +148,7 @@ authController.login = (req, res) => {
       // use bcrypt to compare password passed in through req and pw on file
       bcrypt.compare(pw, result.rows[0].password, function(err, same) {
         if (err)
-          return res.status(500).json({
+          return res.status(505).json({
             err: "there was an error is querying the database: " + err
           });
         if (same) {
