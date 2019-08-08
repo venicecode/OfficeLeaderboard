@@ -11,7 +11,7 @@ const gamesRouter = require("./routes/gamesRoute.js");
 const employeesRouter = require("./routes/employeesRoute.js");
 const statsRouter = require("./routes/statsRoute.js");
 
-//handle parsing
+//handle parsingp
 app.use(bodyParser.json());
 app.use(cookieParser());
 if (process.env.NODE_ENV === "production") {
@@ -19,9 +19,6 @@ if (process.env.NODE_ENV === "production") {
 }
 // app.use('/', express.static(path.join(__dirname, '/build')))
 
-app.get("/*", (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, "../index.html"));
-});
 //
 app.use("/api/auth", authRouter);
 app.use("/api/games", gamesRouter);
@@ -32,6 +29,10 @@ app.get("/dashboard", (req, res) => {
 });
 //catch all for unknown routes
 app.use((req, res) => res.sendStatus(404));
+
+app.get("/*", (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, "../index.html"));
+});
 
 app.use((err, req, res, next) => {
   return res.status(500).send(err);
