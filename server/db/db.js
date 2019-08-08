@@ -11,7 +11,7 @@
 
 const pg = require("pg");
 const conString =
-  "postgres://moadwhlx:FHmgkfKpdD5fE_eoHfOwaAspssEZkZLI@raja.db.elephantsql.com:5432/moadwhlx";
+  "postgres://ffmdkgsy:JQHtGsZobgBeuiuzL-ntDumTgpkXUQ0g@raja.db.elephantsql.com:5432/ffmdkgsy";
 const pool = new pg.Pool({ connectionString: conString });
 
 /* uncomment this whole thing + require .env to initialize a your database with tables for this project */

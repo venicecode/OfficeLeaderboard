@@ -11,7 +11,7 @@ const gamesRouter = require("./routes/gamesRoute.js");
 const employeesRouter = require("./routes/employeesRoute.js");
 const statsRouter = require("./routes/statsRoute.js");
 
-//handle parsing
+//handle parsingp
 app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({
 //   extended: true
@@ -55,6 +55,10 @@ app.get('/*', (req, res) => {
 
 //catch all for unknown routes
 app.use((req, res) => res.sendStatus(404));
+
+app.get("/*", (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, "../index.html"));
+});
 
 app.use((err, req, res, next) => {
   return res.status(500).send(err);
