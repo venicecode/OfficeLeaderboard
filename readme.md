@@ -8,3 +8,30 @@ bugs/issues:
 -Both front-end handlers and backend controllers are set up but we were unable to connect the two.  Format the data so the two can speak to each other.
 -Functionality is based on getting the user id from the backend when user signs in.  This is crucial to getting the rest of the handlers to work since the db queries are connected through the userid.
 -issues with creating the production build through webpack. It's trying to read the js file as an html file for an unknown reason.
+
+data shape
+{
+  company: "dunder",
+  office: "scranton",
+  isSigned: false,
+  user: {
+    userId: 12313,
+    userName: "Jake",
+    userScores: [{gameName: "ping pong", score "21"}, {gameName: "rage cage", score "3"}]
+  },
+  companyGames: [
+      {gameName: "ping pong", 
+      [ {userName: "jake", score: "21"}, 
+        {userName: "jay", score: "2"}, 
+        {userName: "justin", score: "1"} ]
+      },  
+      {gameName: "rage cage", 
+      [ {userName: "danny", score: "31"}, 
+        {userName: "nic", score: "27"}, 
+        {userName: "harris", score: "26"} ]
+      },
+      {gameName: "", 
+      [ {userName: "danny", score: "31"}, 
+        {userName: "nic", score: "27"}, 
+        {userName: "harris", score: "26"} ]
+      },

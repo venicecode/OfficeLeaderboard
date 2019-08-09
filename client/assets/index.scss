@@ -2,10 +2,10 @@
 $primary-color: #2196f3;
 $secondary-color: #64b5f6;
 $tertiary-color: #bbdefb;
-$main-font: 'Graduate', cursive;
+$main-font: 'Roboto', cursive;
 $main-font-color: antiqueWhite;
 
-@import url('https://fonts.googleapis.com/css?family=Graduate&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 @import 'auth';
 @import 'dashboard';
@@ -15,8 +15,48 @@ $main-font-color: antiqueWhite;
 @import 'header-menu';
 @import 'side-bar';
 
+.cardGrid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
+  div{
+   margin: 5px; 
+  }
+}
+
+.dashboard{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-family: $main-font;
+}
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 60px;
+}
+
+.left-header {
+
+}
+
+.right-header {
 
 
+}
 
+main {
+  display: flex;
+}
 
+.left-scores{
+
+  width: 50%;
+}
+
+.right-scores{
+
+  width: 50%;
+}
 
