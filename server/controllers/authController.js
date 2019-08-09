@@ -1,8 +1,3 @@
-const bcrypt = require("bcrypt");
-const pool = require("../db/db.js");
-const jwt = require("jsonwebtoken");
-
-const SALTROUNDS = 10;
 const authController = {};
 
 // check to make sure the user puts in valid inputs on front-end
@@ -170,20 +165,11 @@ authController.login = (req, res) => {
                   username: result.rows[0].username,
                   id: result.rows[0]._id
                 },
-                token: token,
-                isSigned: true
-              });
+              ],
             }
-          );
-        } else {
-          return res
-            .status(400)
-            .json({ err: "That password does not match the one on file" });
-        }
-      });
-    } else {
-      return res.status(400).json({ err: "That username is not on file" });
-    }
-  });
+);
+
+// logic to check whether user credentials match password on file
+authController.login = (req, res) => {
 };
 module.exports = authController;

@@ -1,2 +1,3 @@
 export const EMPLOYEE_LOGIN = "EMPLOYEE_LOGIN";
 export const EMPLOYEE_SIGNUP = "EMPLOYEE_SIGNUP";
+export const ADD_POINT = "ADD_POINT";

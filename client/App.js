@@ -27,6 +27,9 @@ const mapDispatchToProps = dispatch => ({
   },
   signUpButtonHandler: user => {
     dispatch(actions.employeeSignUp(user));
+  },
+  addPointButtonHandler: game => {
+    dispatch(actions.addPoint(game));
   }
 });
 
